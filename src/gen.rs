@@ -4,7 +4,7 @@ pub fn generate_kitty_colors(colors: &Vec<String>) -> Vec<String> {
     let mut config: Vec<String> = vec![String::new(); 44];
     let mut count = 0;
     if let Ok(lines) 
-        = common::read_lines(format!("{}/src/clrgen/templates/kitty.conf", common::get_home_dir())) {
+        = common::read_lines(format!("{}/.clrgen/templates/kitty.conf", common::get_home_dir())) {
         for line in lines {
             if let Ok(conf_line) = line {
                 if !conf_line.starts_with("#") && conf_line.len() != 0{
@@ -29,7 +29,7 @@ pub fn generate_alacritty_colors(colors: &Vec<String>) -> Vec<String> {
     let mut config: Vec<String> = vec![String::new(); 44];
     let mut count = 0;
     if let Ok(lines) 
-        = common::read_lines(format!("{}/src/clrgen/templates/alacritty.yml", common::get_home_dir())) {
+        = common::read_lines(format!("{}/.clrgen/templates/alacritty.yml", common::get_home_dir())) {
         for line in lines {
             if let Ok(conf_line) = line {
                 if !conf_line.starts_with("#") && !conf_line.ends_with(":") && conf_line.len() != 0{

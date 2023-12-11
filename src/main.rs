@@ -4,7 +4,7 @@ mod common;
 fn main() {
     let mut colors: Vec<String> = vec![String::new(); 18];
     let mut count = 1;
-    let file_name = &format!("{}/src/clrgen/example_data/colors", common::get_home_dir());
+    let file_name = &format!("{}/.clrgen/colors/colors", common::get_home_dir());
     if let Ok(lines) = common::read_lines(file_name) {
         for line in lines {
             if let Ok(conf_line) = line {
@@ -22,7 +22,7 @@ fn main() {
     }
     let conf_kitty = gen::generate_kitty_colors(&colors);
     let conf_alacritty = gen::generate_alacritty_colors(&colors);
-    common::write_conf(format!("{}/.config/kitty/gen.conf", common::get_home_dir()), conf_kitty);
-    common::write_conf(format!("{}/.config/alacritty/gen.yml", common::get_home_dir()), conf_alacritty);
+    common::write_conf(format!("{}/.clrgen/kitty_clrgen.conf", common::get_home_dir()), conf_kitty);
+    common::write_conf(format!("{}/.clrgen/alacritty_clrgen.yml", common::get_home_dir()), conf_alacritty);
 
 }
