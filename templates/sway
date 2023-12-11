@@ -1,0 +1,19 @@
+set $background $17
+set $foreground $16
+
+set $color0 $0
+set $color1 $1
+set $color2 $2
+set $color3 $3
+set $color4 $4
+set $color5 $5
+set $color6 $6
+set $color7 $7
+set $color8 $8
+set $color9 $9
+set $color10 $10
+set $color11 $11
+set $color12 $12
+set $color13 $13
+set $color14 $14
+set $color15 $15

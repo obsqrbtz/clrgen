@@ -1,0 +1,22 @@
+# class                 border  bground text    indicator child_border
+client.focused          $16 $16 $17 $16   $16
+client.focused_inactive $17 $0 $16 $16   $16
+client.unfocused        $17 $17 $7 $16   $16
+client.urgent           $1 $1 $17 $1   $1
+client.placeholder      $17 $17 $16 $16   $16
+
+client.background       $17
+
+bar {
+  colors {
+    background $17
+    statusline $16
+    separator  $7
+
+    focused_workspace  $17 $16 $17
+    active_workspace   $17 $17 $16
+    inactive_workspace $17 $17 $7
+    urgent_workspace   $1 $1 $16
+    binding_mode       $1 $1 $16
+  }
+}
