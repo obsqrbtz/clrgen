@@ -22,7 +22,9 @@ fn main() {
     }
     let conf_kitty = gen::generate_kitty_colors(&colors);
     let conf_alacritty = gen::generate_alacritty_colors(&colors);
+    let conf_i3 = gen::generate_i3_colors(&colors);
     common::write_conf(format!("{}/.clrgen/kitty_clrgen.conf", common::get_home_dir()), conf_kitty);
     common::write_conf(format!("{}/.clrgen/alacritty_clrgen.yml", common::get_home_dir()), conf_alacritty);
+    common::write_conf(format!("{}/.clrgen/i3_clrgen", common::get_home_dir()), conf_i3);
 
 }
