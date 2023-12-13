@@ -1,0 +1,35 @@
+# special
+16  #f8f8f2
+17  #6272a4
+
+# black
+0   #21222c
+8   #373b41
+
+# red
+1   #ff5555
+9   #ff6e6e
+
+# green
+2   #50fa7b
+10  #69ff94
+
+# yellow
+3   #f1fa8c
+11  #ffffa5
+
+# blue
+4   #bd93f9
+12  #d6acff
+
+# magenta
+5   #ff79c6
+13  #ff92df
+
+# cyan
+6   #8be9fd
+14  #a4ffff
+
+# white
+7   #f8f8f2
+15  #ffffff
