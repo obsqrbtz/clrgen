@@ -12,7 +12,7 @@ struct Args {
     #[arg(short, long)]
     theme: std::path::PathBuf,
 
-    /// Target app. Example: kitty, i3, all.
+    /// Target app. Example: kitty, i3, use_config.
     /// For full app list visit https://github.com/obsqrbtz/clrgen.
     #[arg(short, long, 
         default_value_t = format!("use_config"))]
@@ -24,16 +24,15 @@ struct Args {
     config: std::path::PathBuf,
 }
 
-// Top level struct to hold the TOML data.
 #[derive(Deserialize)]
-struct Data {
-    config: Config,
+struct AppsData {
+    apps: Apps,
 }
 
-// Config struct holds to data from the `[config]` section.
 #[derive(Deserialize)]
-struct Config {
-    apps: Vec<String>,
+struct Apps {
+    names: Vec<String>,
+    templates: Vec<String>,
 }
 
 fn main() {
@@ -49,8 +48,7 @@ fn main() {
             exit(1);
         }
     };
-
-    let toml_data: Data = match toml::from_str(&toml_contents) {
+    let toml_data: AppsData = match toml::from_str(&toml_contents) {
         Ok(d) => d,
         Err(_) => {
             eprintln!("Unable to load data from `{}`", &args.config.display());
@@ -73,57 +71,37 @@ fn main() {
             }
         }
     }
-    if args.appname == "all"{
-
-        let conf_kitty = gen::generate_hex(&colors, "kitty.conf".to_string());
-        let conf_i3 = gen::generate_hex(&colors, "i3config".to_string());
-        let conf_alacritty = gen::generate_hex(&colors, "alacritty.yml".to_string());
-        let conf_eww = gen::generate_hex(&colors, "eww.scss".to_string());
-        let conf_sway = gen::generate_hex(&colors, "sway".to_string());
-        let conf_waybar = gen::generate_hex(&colors, "waybar.css".to_string());
-        common::write_conf(format!("{}/.clrgen/clrgen_kitty.conf", common::get_home_dir()), conf_kitty);
-        common::write_conf(format!("{}/.clrgen/clrgen_alacritty.yml", common::get_home_dir()), conf_alacritty);
-        common::write_conf(format!("{}/.clrgen/clrgen_i3", common::get_home_dir()), conf_i3);
-        common::write_conf(format!("{}/.clrgen/clrgen_eww.scss", common::get_home_dir()), conf_eww);
-        common::write_conf(format!("{}/.clrgen/clrgen_sway", common::get_home_dir()), conf_sway);
-        common::write_conf(format!("{}/.clrgen/clrgen_waybar.css", common::get_home_dir()), conf_waybar);
-    }else if args.appname == "use_config" {
-        for i in 0..toml_data.config.apps.len(){
-            create_conf(&toml_data.config.apps[i], &colors);
+    if args.appname == "use_config" {
+        for i in 0..toml_data.apps.names.len(){
+            let conf = create_conf(&toml_data.apps.names[i], &colors);
+            common::write_conf(format!("{}/.clrgen/clrgen_{}", common::get_home_dir(), &toml_data.apps.templates[i]), conf);
         }
     }else
     {
         let appname = args.appname.as_str();
-        create_conf(appname, &colors);
+        // TODO: handle missing template
+        let app_idx = toml_data.apps.names.iter().position(|r| r == appname).unwrap();
+        let conf = create_conf(appname, &colors);
+        common::write_conf(format!("{}/.clrgen/clrgen_{}", common::get_home_dir(), toml_data.apps.templates[app_idx]), conf);
     }
 }
 
-fn create_conf(appname: &str, colors: &Vec<String>){
+fn create_conf(appname: &str, colors: &Vec<String>) -> Vec<String>{
+    let mut conf: Vec<String> = Vec::new();
     match appname{ 
-        "kitty" => {
-            let conf_kitty = gen::generate_hex(&colors, "kitty.conf".to_string());
-            common::write_conf(format!("{}/.clrgen/clrgen_kitty.conf", common::get_home_dir()), conf_kitty);
-        }, 
-        "alacritty" => {
-            let conf_alacritty = gen::generate_hex(&colors, "alacritty.yml".to_string());
-            common::write_conf(format!("{}/.clrgen/clrgen_alacritty.yml", common::get_home_dir()), conf_alacritty);
-        }, 
-        "i3" => {
-            let conf_i3 = gen::generate_hex(&colors, "i3config".to_string());
-            common::write_conf(format!("{}/.clrgen/clrgen_i3", common::get_home_dir()), conf_i3);
-        },
-        "eww"=> {
-            let conf_eww = gen::generate_hex(&colors, "eww.scss".to_string());
-            common::write_conf(format!("{}/.clrgen/clrgen_eww.scss", common::get_home_dir()), conf_eww);
-        },
-        "sway" => {
-            let conf_sway = gen::generate_hex(&colors, "sway".to_string());
-            common::write_conf(format!("{}/.clrgen/clrgen_sway", common::get_home_dir()), conf_sway);
-        },
-        "waybar" => {
-            let conf_waybar = gen::generate_hex(&colors, "waybar.css".to_string());
-            common::write_conf(format!("{}/.clrgen/clrgen_waybar.css", common::get_home_dir()), conf_waybar);
-        },
+        "kitty" => 
+            conf = gen::generate_hex(&colors, "kitty.conf".to_string()),
+        "alacritty" =>
+            conf = gen::generate_hex(&colors, "alacritty.yml".to_string()), 
+        "i3" => 
+            conf = gen::generate_hex(&colors, "i3config".to_string()),
+        "eww"=> 
+            conf = gen::generate_hex(&colors, "eww.scss".to_string()),
+        "sway" => 
+            conf = gen::generate_hex(&colors, "sway".to_string()),
+        "waybar" => 
+            conf = gen::generate_hex(&colors, "waybar.css".to_string()),
         _ => println!("No template for the app {}", appname),
     }
+    conf
 }

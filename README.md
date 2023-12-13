@@ -27,7 +27,7 @@ Options:
   -V, --version            Print version
 ```
 
-**Available apps options**: `kitty`, `alacritty`, `waybar`, `i3`, `sway`, `eww`, `all`.
+**Available apps options**: `kitty`, `alacritty`, `waybar`, `i3`, `sway`, `eww`.
 
 Themes will be created in `~/.clrgen` directory.
 
@@ -46,13 +46,19 @@ Themes will be created in `~/.clrgen` directory.
 This file is used to define the app list for clrgen. If you don't need colorscheme for the app `x` simply comment or remove the corresponding line.
 
 ```
-[config]
-apps = ["kitty", 
+[apps]
+names = ["kitty", 
         "alacritty", 
-        #"waybar", 
-        #"eww", 
-        "i3", 
-        "sway"]
+        "waybar", 
+        "eww", 
+        #"i3", 
+        #"sway"]
+templates = ["kitty.conf", 
+        "alacritty.yml", 
+        "waybar.css", 
+        "eww.scss", 
+        #"i3config", 
+        #"sway"]
 ```
 
 If `--config` flag is not specified, `clrgen` uses default configuration file.

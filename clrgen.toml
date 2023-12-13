@@ -1,7 +1,13 @@
-[config]
-apps = ["kitty", 
+[apps]
+names = ["kitty", 
         "alacritty", 
         "waybar", 
         "eww", 
         "i3", 
+        "sway"]
+templates = ["kitty.conf", 
+        "alacritty.yml", 
+        "waybar.css", 
+        "eww.scss", 
+        "i3config", 
         "sway"]
