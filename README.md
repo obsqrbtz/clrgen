@@ -34,7 +34,9 @@ Themes will be created in `~/.clrgen` directory.
 **Examples:**
 
 `clrgen -t ~/.config/.clrgen/colors/dracula -a all` - create `dracula` colorschemes for apps defined in the `clrgen.toml`.
+
 `clrgen -t ~/.config/.clrgen/colors/dracula -a all` - create `dracula` colorschemes for all available apps.
+
 `clrgen -t ~/.config/.clrgen/colors/dracula -a kitty` - create `dracula` colorscheme for kitty.
 
 ## Configuration
