@@ -1,6 +1,7 @@
 #!/bin/sh
-mkdir -p ~/.clrgen/templates
-mkdir -p ~/.clrgen/colors
-cp -rf templates/* ~/.clrgen/templates/
-cp -rf colors/* ~/.clrgen/colors/
+mkdir -p ~/.config/clrgen/templates
+mkdir -p ~/.config/clrgen/colors
+mkdir -p ~/.clrgen
+cp -rf templates/* ~/config/clrgen/templates/
+cp -rf colors/* ~/.config/clrgen/colors/
 sudo cp clrgen /usr/local/bin/

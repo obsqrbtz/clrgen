@@ -1,0 +1,7 @@
+[config]
+apps = ["kitty", 
+        "alacritty", 
+        "waybar", 
+        "eww", 
+        "i3", 
+        "sway"]
